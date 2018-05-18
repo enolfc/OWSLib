@@ -1580,8 +1580,11 @@ class ComplexDataInput(IComplexDataInput, ComplexData):
         """
            <wps:Reference xlink:href="http://somewhere/test.xml"/>
         """
+        attrib = {nspath_eval("xlink:href", namespaces): self.value}
+        if self.mimeType:
+            attrib['mimeType'] = self.mimeType
         refElement = etree.Element(nspath_eval('wps:Reference', namespaces),
-                                   attrib={nspath_eval("xlink:href", namespaces): self.value})
+                                   attrib=attrib)
         return refElement
 
     def complexDataRaw(self):
